@@ -7,17 +7,73 @@ export default class FightScene extends Phaser.Scene {
   }
 
   preload() {
+    //user animation 
+      //Player spritesheet
+    this.load.spritesheet('be', 'assets/sprites/player_idle.png',{frameWidth:32,frameHeight:32});
+    this.load.spritesheet('bedown', 'assets/sprites/player_walking.png',{frameWidth:32,frameHeight:32});
+    this.load.spritesheet('beup', 'assets/sprites/player_walk_back.png',{frameWidth:32,frameHeight:32});
+    this.load.spritesheet('beleft', 'assets/sprites/player_walk_left.png',{frameWidth:32,frameHeight:32});
+    this.load.spritesheet('beright', 'assets/sprites/player_walk_right.png',{frameWidth:32,frameHeight:32});
+    //change goal asset to desk
+    this.load.image("goal", "assets/sprites/desk.png");
+    //add professor sprite
+    this.load.image("traugott", "assets/sprites/professor.png");
+    //change goal to professor desk
+
+
     // Assets
     this.load.image("block", "assets/sprites/crate32.png");
     this.load.image("ice", "assets/sprites/block-ice.png");
-    this.load.image("be", "assets/sprites/beball1.png");
+   // this.load.image("be", "assets/sprites/beball1.png");
     this.load.image("goal", "assets/sprites/columns-blue.png");
     this.load.image("heart", "assets/sprites/heart.png");
   }
 
   create() {
+    //player animation 
+       // Player spawn (bottom-left)
+    this.player = this.physics.add.sprite(50, 550, 'be').setBodySize(14,25,true).setScale(2.5,2.5); //Changed image to sprite
+   
+    // Player animations
+    this.anims.create({
+        key: 'up',
+        frames: this.anims.generateFrameNumbers('beup', { start: 0, end: 1}),
+        frameRate: 6,
+        repeat: -1
+    });
+
+
+    this.anims.create({
+        key: 'down',
+        frames: this.anims.generateFrameNumbers('bedown', { start: 0, end: 1}),
+        frameRate: 6,
+        repeat: -1
+    });
+
+
+    this.anims.create({
+        key: 'left',
+        frames: this.anims.generateFrameNumbers('beleft', { start: 0, end: 1}),
+        frameRate: 6,
+        repeat: -1
+    });
+
+
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('beright', { start: 0, end: 1}),
+        frameRate: 6,
+        repeat: -1
+    });
+
+
+    this.anims.create({
+        key: 'idle',
+        frames: [ { key: 'be', frame: 0 } ],
+    });
+
     // Player spawn (bottom-left)
-    this.player = this.physics.add.sprite(50, 550, "be");
+   // this.player = this.physics.add.sprite(50, 550, "be");
     this.player.setCollideWorldBounds(true);
     this.player.setPushable(false);
 
@@ -30,8 +86,10 @@ export default class FightScene extends Phaser.Scene {
     });
 
     // Goal at top-right
-    this.goal = this.physics.add.staticImage(760, 40, "goal").setScale(0.8);
-
+    this.physics.add.staticImage(761,40,"traugott").setScale(2.5);
+    this.goal = this.physics.add.staticImage(760, 60, "goal").setScale(1.25);
+    //this.goal = this.physics.add.staticImage(760, 40, "goal").setScale(0.8);
+    
     // Life hearts
     this.hearts = [];
     for (let i = 0; i < this.lives; i++) {
@@ -121,17 +179,39 @@ export default class FightScene extends Phaser.Scene {
 
     this.player.setVelocity(0);
 
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-200);
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(200);
+    //player movement
+
+    if (this.cursors.left.isDown)
+    {
+        this.player.setVelocityX(-200);
+        this.player.anims.play('left', true);
     }
-    if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-200);
-    } else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(200);
+    else if (this.cursors.right.isDown)
+    {
+        this.player.setVelocityX(200);
+        this.player.anims.play('right', true);
+    }
+
+
+    if (this.cursors.up.isDown)
+    {
+        this.player.setVelocityY(-200);
+        this.player.anims.play('up', true);
+    }
+    else if (this.cursors.down.isDown)
+    {
+        this.player.setVelocityY(200);
+        this.player.anims.play('down', true);
+    }
+
+
+    if(this.cursors.left.isUp && this.cursors.right.isUp && this.cursors.up.isUp && this.cursors.down.isUp) //Idle animation when no keys pressed
+    {
+      this.player.anims.play('idle');
     }
   }
+
+  
 
   hitObstacle(player, obstacle) {
     if (this.invincible) return;
