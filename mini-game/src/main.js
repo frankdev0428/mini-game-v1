@@ -1,5 +1,3 @@
-
-
 import Phaser from "phaser";
 import StartScene from "./StartScene.js";
 import FightScene from "./FightScene.js";
