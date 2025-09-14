@@ -21,7 +21,7 @@ Players must avoid obstacles, complete all required courses, and reach the gradu
 - JavaScript (ES6 modules)  
 - HTML5 + CSS  
 - Node.js (for local development)  
-
+- Node Package Manager
 ---
 
 ## 📂 Project Structure
@@ -55,28 +55,21 @@ Copy code
 Clone the repo:
 ```bash
 git clone https://github.com/frankdev0428/mini-game-v1.git
-cd hackathonProject
-Install dependencies:
+cd mini-game-v1
+Run those commands
+npm i  (install node_modules)
+npm run dev (run application)
 
-bash
-Copy code
-npm install
-Run local dev server:
 
-bash
-Copy code
-npm run dev
-Open in your browser:
+Open in your browser: localhost::
 
-arduino
-Copy code
-http://localhost:5173
-📸 Screenshots
-(Add game screenshots here)
+
+ <img width="939" height="216" alt="Screenshot 2025-09-13 at 11 25 56 PM" src="https://github.com/user-attachments/assets/4f1a82af-7123-43dc-8a0a-cc1527698b96" />
+
 
 🙌 Credits
 Developed by Frank Dev (Hoang Le)
 
 Built with Phaser 3
 
-Hackathon project 2025 🚀
+Hackathon Mesa Cal State East Bay September 2025 🚀
