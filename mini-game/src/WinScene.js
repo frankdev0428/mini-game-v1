@@ -12,7 +12,7 @@ export default class WinScene extends Phaser.Scene {
 
   preload() {
     // Trophy or cup asset (use any sprite, replace with your asset path)
-    this.load.image("cup", "assets/sprites/trophy.png");
+    this.load.image("cup", "assets/sprites/star.png");
   }
 
   create() {
