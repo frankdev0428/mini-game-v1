@@ -77,7 +77,7 @@ export default class FightScene extends Phaser.Scene {
         y = Phaser.Math.Between(100, 500);
       } while (safeZone.contains(x, y));
 
-      const cube = this.obstacles.create(x, y, "ice").setScale(0.5);
+      const cube = this.obstacles.create(x, y, "ice").setScale(0.25);
       cube.setCollideWorldBounds(true);
       cube.setBounce(1);
       cube.body.setSize(cube.width * 0.5, cube.height * 0.5);
